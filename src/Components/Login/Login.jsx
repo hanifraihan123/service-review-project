@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import login from "../../assets/login.json"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from 'react-hot-toast';
@@ -9,16 +9,26 @@ import toast from 'react-hot-toast';
 const Login = () => {
 
   const {userLogin,logInWithGoogle} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
+
+        const regex = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+
+        if(!regex.test(password)){
+          toast.error("Password should be at least one uppercase, one lowercase, 6 or more character");
+          return;
+        }    
+
         userLogin(email, password)
         .then(result=>{
           if(result.user){
             toast.success('Login Succesfully')
+            navigate('/')
           }
         })
         .catch(error=>{
@@ -31,6 +41,7 @@ const Login = () => {
     .then(result=>{
       if(result.user){
         toast.success('Login Succesfully')
+        navigate('/')
       }
     })
     .catch(error=>{

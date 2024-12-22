@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import register from "../../assets/register.json"
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -7,7 +7,9 @@ import toast from 'react-hot-toast';
 
 
 const Register = () => {
-  const {createUser,logInWithGoogle} = useContext(AuthContext);
+
+  const {createUser,logInWithGoogle,updateUserProfile} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -16,10 +18,28 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
+
+    const regex = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+
+    if(!regex.test(password)){
+      toast.error("Password should be at least one uppercase, one lowercase, 6 or more character");
+      return;
+    }
+
     createUser(email, password)
     .then(result=>{
-      if(result.user){
-        toast.success('Login Succesfully')
+      if(!result.user){
+        toast.error('Invalid Email or Password')
+      }
+      else{
+        updateUserProfile({displayName:name,photoURL:photo})
+        .then(()=>{
+          toast.success('Login Succesfully')
+          navigate('/')
+        })
+        .catch(error=>{ 
+          toast.error(error.message)
+        })
       }
     })
     .catch(error=>{
@@ -32,6 +52,7 @@ const Register = () => {
     .then(result=>{
       if(result.user){
         toast.success('Login Succesfully')
+        navigate('/')
       }
     })
     .catch(error=>{
