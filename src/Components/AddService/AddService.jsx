@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const AddService = () => {
   const { user } = useContext(AuthContext);
@@ -17,7 +19,16 @@ const AddService = () => {
     const date = form.date.value;
     const email = user?.email;
 
-    console.log(image, title, company, website, price, category, description, date, email);
+    const formData = { image, title, company, website, price, category, description, date, email };
+
+    axios.post("http://localhost:5000/addService", formData)
+    .then(response => {
+        if(response.data.insertedId){
+            form.reset();
+            toast.success('Service Added Successfully')
+        }
+    })
+
   };
 
   return (
