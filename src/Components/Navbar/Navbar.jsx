@@ -38,9 +38,8 @@ const Navbar = () => {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
-        <li><a>Item 2</a></li>
-        <li><a>Item 3</a></li>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/service">Services</NavLink>
       </ul>
     </div>
     <img className="h-12 w-12 rounded-full" src="https://i.ibb.co.com/6mcCmGK/verified-reviews-vector-icons-logo-trust-badges-images-526569-1300.jpg" alt="" />
@@ -49,8 +48,10 @@ const Navbar = () => {
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal flex gap-3 px-1">
       <NavLink to="/">Home</NavLink>
-      <NavLink>Services</NavLink>
-      <NavLink>Other Route</NavLink>
+      <NavLink to="/service">Services</NavLink>
+      {
+        user && <><NavLink to="/addService">Add Service</NavLink> <NavLink to="/myReviews">My Reviews</NavLink> </>
+      }
     </ul>
   </div>
   <div className="navbar-end">
