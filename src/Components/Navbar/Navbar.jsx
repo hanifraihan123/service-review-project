@@ -55,7 +55,7 @@ const Navbar = () => {
   </div>
   <div className="navbar-end">
    {
-    user? <div className="flex gap-2 items-center"><img className="h-10 w-10 rounded-full" src={user?.photoURL} alt="" /> <button onClick={handleLogout} className="btn">Logout</button></div>  : 
+    user? <div className="flex gap-2 items-center"><img className="h-12 w-12 rounded-full" src={user?.photoURL} alt="" /> <button onClick={handleLogout} className="btn">Logout</button></div>  : 
     <div className="flex gap-2 items-center"><Link to="login"><button className="btn">Login</button></Link>
    <Link to="register"><button className="btn">Register</button></Link></div>
    }
