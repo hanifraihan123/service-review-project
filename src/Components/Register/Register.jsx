@@ -1,9 +1,13 @@
 import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 import register from "../../assets/register.json"
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
+import toast from 'react-hot-toast';
 
 
 const Register = () => {
+  const {createUser,logInWithGoogle} = useContext(AuthContext);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -12,7 +16,27 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(name, photo, email, password)
+    createUser(email, password)
+    .then(result=>{
+      if(result.user){
+        toast.success('Login Succesfully')
+      }
+    })
+    .catch(error=>{
+      toast.error(error.message)
+    })
+  }
+
+  const handleGoogle = () => {
+    logInWithGoogle()
+    .then(result=>{
+      if(result.user){
+        toast.success('Login Succesfully')
+      }
+    })
+    .catch(error=>{
+      toast.error(error)
+    })
   }
 
     return (
@@ -52,7 +76,7 @@ const Register = () => {
         </div>
       </form>
             <div className="text-center space-y-2 mt-4 mb-4">
-            <button className="btn btn-secondary">Login With Google</button>
+            <button onClick={handleGoogle} className="btn btn-secondary">Login With Google</button>
             <p className="text-center">Already have a account ? Please <Link to="/login"><span className="text-red-600">Login</span></Link></p>
             </div>
             </div>

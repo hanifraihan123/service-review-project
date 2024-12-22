@@ -3,10 +3,12 @@ import login from "../../assets/login.json"
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import toast from 'react-hot-toast';
 
 
 const Login = () => {
-  const {userLogin} = useContext(AuthContext);
+
+  const {userLogin,logInWithGoogle} = useContext(AuthContext);
 
   const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,13 +17,26 @@ const Login = () => {
         const password = form.password.value;
         userLogin(email, password)
         .then(result=>{
-          console.log(result.user)
+          if(result.user){
+            toast.success('Login Succesfully')
+          }
         })
         .catch(error=>{
-          console.log(error.message)
+          toast.error(error.message)
         })
   }
 
+  const handleGoogle = () => {
+    logInWithGoogle()
+    .then(result=>{
+      if(result.user){
+        toast.success('Login Succesfully')
+      }
+    })
+    .catch(error=>{
+      toast.error(error.message)
+    })
+  }
 
     return (
         <div className="flex gap-4 mx-auto items-center justify-center bg-emerald-200">
@@ -51,7 +66,7 @@ const Login = () => {
         </div>
       </form>
             <div className="text-center space-y-2 mt-4">
-            <button className="btn btn-secondary">Login With Google</button>
+            <button onClick={handleGoogle} className="btn btn-secondary">Login With Google</button>
             <p className="text-center">Create a account ? Please <Link to="/register"><span className="text-red-600">Register</span></Link></p>
             </div>
             </div>

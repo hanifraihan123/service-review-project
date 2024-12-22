@@ -1,6 +1,22 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+
+  const {user,logOut} = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logOut()
+    .then(()=>{
+      toast.success('Logout Successfully')
+    })
+    .catch(error=>{
+      toast.error(error.message)
+    })  
+  }
+
     return (
         <div className="navbar bg-gradient-to-r from-purple-500 to-pink-500">
   <div className="navbar-start">
@@ -37,9 +53,12 @@ const Navbar = () => {
       <NavLink>Other Route</NavLink>
     </ul>
   </div>
-  <div className="navbar-end flex gap-2">
-   <Link to="login"><button className="btn">Login</button></Link>
-   <Link to="register"><button className="btn">Register</button></Link>
+  <div className="navbar-end">
+   {
+    user? <div className="flex gap-2 items-center"><img className="h-10 w-10 rounded-full" src={user?.photoURL} alt="" /> <button onClick={handleLogout} className="btn">Logout</button></div>  : 
+    <div className="flex gap-2 items-center"><Link to="login"><button className="btn">Login</button></Link>
+   <Link to="register"><button className="btn">Register</button></Link></div>
+   }
   </div>
 </div>
     );
