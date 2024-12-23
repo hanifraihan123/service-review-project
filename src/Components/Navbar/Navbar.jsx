@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from "react-hot-toast";
+import { easeInOut, motion } from "motion/react";
+
 
 const Navbar = () => {
 
@@ -40,10 +42,13 @@ const Navbar = () => {
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/service">Services</NavLink>
+          {
+        user && <><NavLink to="/addService">Add Service</NavLink> <NavLink to="/myReviews">My Reviews</NavLink> </>
+      }
       </ul>
     </div>
     <img className="h-12 w-12 rounded-full" src="https://i.ibb.co.com/6mcCmGK/verified-reviews-vector-icons-logo-trust-badges-images-526569-1300.jpg" alt="" />
-    <h3 className="ml-4 font-bold text-2xl">Service Review</h3>
+    <motion.h3 animate={{x:25,color: ['#f8f9f2','#33ffe3','#74ff33','#33fff6','#f5f50e']}} transition={{duration:2,delay:1,ease:easeInOut,repeat:Infinity}} className="ml-4 font-bold text-2xl">Service <motion.span>Review</motion.span></motion.h3>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal flex gap-3 px-1">

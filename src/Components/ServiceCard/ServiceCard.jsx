@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "motion/react"
 
 const ServiceCard = ({service}) => {
 
@@ -14,7 +15,7 @@ const ServiceCard = ({service}) => {
           <p><span className="font-bold">Category:</span> {service.category}</p>
           <p><span className="font-bold">Price:</span> {service.price}</p>
           <div className="card-actions justify-center">
-            <Link to={`/service/${service._id}`}><button className="btn btn-warning">See Details</button></Link>
+            <Link to={`/service/${service._id}`}><motion.button whileHover={{ scale: 1.2 }} className="btn btn-warning">See Details</motion.button></Link>
           </div>
         </div>
       </div>
