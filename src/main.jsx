@@ -12,6 +12,7 @@ import AddService from './Components/AddService/AddService';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import Service from './Components/Service/Service';
 import MyReviews from './Components/MyReviews/MyReviews';
+import SingleService from './Components/SingleService/SingleService';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/service",
         element: <Service></Service>
+      },
+      {
+        path: "/service/:id",
+        element: <PrivateRoute><SingleService></SingleService></PrivateRoute>
       },
       {
         path: "/addService",
