@@ -104,7 +104,7 @@ const AddService = () => {
             <label className="label">
               <span className="label-text">Category</span>
             </label>
-            <select name="category" className="select select-bordered w-full">
+            <select name="category" required className="select select-bordered w-full">
               <option defaultValue={true}>
                 Select One
               </option>
