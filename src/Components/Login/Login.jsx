@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import login from "../../assets/login.json"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from 'react-hot-toast';
@@ -10,6 +10,7 @@ const Login = () => {
 
   const {userLogin,logInWithGoogle} = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,7 +29,7 @@ const Login = () => {
         .then(result=>{
           if(result.user){
             toast.success('Login Succesfully')
-            navigate('/')
+            navigate(location.state || '/')
           }
         })
         .catch(error=>{
@@ -41,7 +42,7 @@ const Login = () => {
     .then(result=>{
       if(result.user){
         toast.success('Login Succesfully')
-        navigate('/')
+        navigate(location.state || '/')
       }
     })
     .catch(error=>{

@@ -34,9 +34,11 @@ const SingleService = () => {
     const review = form.review.value;
     const reviewDate = formatDate(new Date(),'P');
     const serviceId = _id;
+    const serviceTitle = title;
     const name = user?.displayName;
     const photo = user?.photoURL;
-    const reviewData = {serviceId,review,rating,reviewDate,name,photo}
+    const email = user?.email;
+    const reviewData = {serviceId,serviceTitle,review,rating,reviewDate,name,photo,email}
     
     axios.post('http://localhost:5000/allReviews',reviewData)
     .then(result=>{
