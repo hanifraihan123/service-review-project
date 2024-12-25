@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddService = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,11 +23,12 @@ const AddService = () => {
 
     const formData = { image, title, company, website, price, category, description, date, email };
 
-    axios.post("http://localhost:5000/addService", formData)
+    axios.post("https://service-review-system-server.vercel.app/addService", formData)
     .then(response => {
         if(response.data.insertedId){
             form.reset();
             toast.success('Service Added Successfully')
+            navigate(`/myServices/${user?.email}`)
         }
     })
 

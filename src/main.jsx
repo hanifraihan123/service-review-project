@@ -14,12 +14,13 @@ import Service from './Components/Service/Service';
 import MyReviews from './Components/MyReviews/MyReviews';
 import SingleService from './Components/SingleService/SingleService';
 import MyServices from './Components/MyServices/MyServices';
+import ErrorPage from './Components/ErrorPage/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement: <h1>Not Found</h1>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",

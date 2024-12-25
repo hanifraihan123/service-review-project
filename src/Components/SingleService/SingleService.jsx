@@ -24,7 +24,7 @@ const SingleService = () => {
   }, []);
 
   const fetchSingleData = async () => {
-    const { data } = await axios.get(`http://localhost:5000/service/${id}`);
+    const { data } = await axios.get(`https://service-review-system-server.vercel.app/service/${id}`);
     setService(data);
   };
 
@@ -40,7 +40,7 @@ const SingleService = () => {
     const email = user?.email;
     const reviewData = {serviceId,serviceTitle,review,rating,reviewDate,name,photo,email}
     
-    axios.post('http://localhost:5000/allReviews',reviewData)
+    axios.post('https://service-review-system-server.vercel.app/allReviews',reviewData)
     .then(result=>{
         if(result.data){
             toast.success('Review Added Successfully')
@@ -50,7 +50,7 @@ const SingleService = () => {
   }
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/review?id=${id}`)
+        axios.get(`https://service-review-system-server.vercel.app/review?id=${id}`)
         .then(result=>{
             setReviews(result.data)
         })
