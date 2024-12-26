@@ -15,6 +15,7 @@ const SingleService = () => {
   const [rating, setRating] = useState(0);
   const [reviews,setReviews] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
+  
   const {user} = useContext(AuthContext);
 
   const {title,description,category,price,image,company,date,email,website,_id} = service;

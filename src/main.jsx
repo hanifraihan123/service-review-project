@@ -15,6 +15,8 @@ import MyReviews from './Components/MyReviews/MyReviews';
 import SingleService from './Components/SingleService/SingleService';
 import MyServices from './Components/MyServices/MyServices';
 import ErrorPage from './Components/ErrorPage/ErrorPage';
+import { HelmetProvider } from 'react-helmet-async';
+const helmetContext = {};
 
 const router = createBrowserRouter([
   {
@@ -60,9 +62,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-     <AuthProvider>
+  <HelmetProvider context={helmetContext}>
+  <AuthProvider>
         <RouterProvider router={router} />
          <Toaster/>
      </AuthProvider>
+  </HelmetProvider>
   </StrictMode>,
 )
