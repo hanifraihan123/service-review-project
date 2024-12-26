@@ -4,11 +4,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from 'react-hot-toast';
+import axios from "axios";
 
 
 const Login = () => {
 
-  const {userLogin,logInWithGoogle} = useContext(AuthContext);
+  const {userLogin,logInWithGoogle,user} = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -51,11 +52,11 @@ const Login = () => {
   }
 
     return (
-        <div className="flex gap-4 mx-auto items-center justify-center bg-emerald-200">
-            <div className="py-10 px-4">
+        <div className="flex gap-4 mx-auto items-center justify-center bg-emerald-200 w-full px-4">
+            <div className="lg:py-10 md:py-6 py-2 px-4">
                 <Lottie animationData={login}></Lottie>
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 py-4">
             <form onSubmit={handleSubmit} className="card-body bg-emerald-400 rounded-lg">
             <h4 className="text-2xl font-bold text-center">Login now!</h4>
         <div className="form-control">

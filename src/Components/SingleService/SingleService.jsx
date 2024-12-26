@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import { formatDate } from 'date-fns';
 import toast from "react-hot-toast";
 import { AuthContext } from "../Provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const SingleService = () => {
   const { id } = useParams();
@@ -25,7 +26,7 @@ const SingleService = () => {
   }, []);
 
   const fetchSingleData = async () => {
-    const { data } = await axios.get(`https://service-review-system-server.vercel.app/service/${id}`);
+    const { data } = await axios.get(`http://localhost:5000/service/${id}`);
     setService(data);
   };
 
@@ -41,7 +42,7 @@ const SingleService = () => {
     const email = user?.email;
     const reviewData = {serviceId,serviceTitle,review,rating,reviewDate,name,photo,email}
     
-    axios.post('https://service-review-system-server.vercel.app/allReviews',reviewData)
+    axios.post('http://localhost:5000/allReviews',reviewData)
     .then(result=>{
         if(result.data){
             toast.success('Review Added Successfully')
@@ -51,7 +52,7 @@ const SingleService = () => {
   }
 
     useEffect(()=>{
-        axios.get(`https://service-review-system-server.vercel.app/review?id=${id}`)
+        axios.get(`http://localhost:5000/review?id=${id}`)
         .then(result=>{
             setReviews(result.data)
         })
@@ -59,9 +60,12 @@ const SingleService = () => {
 
 
   return (
-    <div className="px-32 items-center justify-center bg-lime-100 py-6">
+    <div className="lg:px-32 md:px-20 px-6 items-center justify-center bg-lime-100 py-3 md:py-3 lg:py-6">
+      <Helmet>
+       <title>Service Details</title>
+      </Helmet>
         <div className="card lg:card-side bg-red-200 shadow-xl">
-          <div className="card-body w-1/2 space-y-2">
+          <div className="card-body space-y-2">
           <figure>
             <img className="h-40 rounded-xl" src={image} alt="Album" />
           </figure>
@@ -85,7 +89,7 @@ const SingleService = () => {
             </div>
             </form>   
             </div>
-            <div className="w-1/2 space-y-4 pt-6">
+            <div className="w-1/2 mx-auto lg:space-y-4 space-y-2 py-6">
             <h2 className="card-title">Title: {title}</h2>
             <p>Description: {description}</p>
             <p>Category: {category}</p>

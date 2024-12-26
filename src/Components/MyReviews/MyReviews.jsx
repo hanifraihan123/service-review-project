@@ -3,17 +3,22 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { Rating } from "@smastrom/react-rating";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 
 const MyReviews = () => {
   const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
+  const [rating,setRating] = useState();
 
   useEffect(() => {
     fetchAllReviews()
   }, [user]);
 
+  const axiosSecure = useAxiosSecure()
+
   const fetchAllReviews = async() => {
-    const {data} = await axios.get(`https://service-review-system-server.vercel.app/review/${user?.email}`)
+    const {data} = await axiosSecure.get(`/review/${user?.email}`)
         setReviews(data);
   }
  
@@ -28,7 +33,7 @@ const MyReviews = () => {
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-            axios.delete(`https://service-review-system-server.vercel.app/review/${id}`)
+            axiosSecure.delete(`/review/${id}`)
             .then(res=>{
             if(res.data.deletedCount > 0){
                 Swal.fire({
@@ -45,12 +50,15 @@ const MyReviews = () => {
 
   return (
     <div className="flex flex-col gap-2 items-center bg-fuchsia-400">
+      <Helmet>
+        <title>My Reviews</title>
+      </Helmet>
       <div className="space-y-4 my-4">
         {reviews.map((review) => (
           <div
             key={review._id}
             review={review}
-            className="card bg-fuchsia-100 w-96 shadow-xl"
+            className="card bg-fuchsia-100 lg:w-96 shadow-xl"
           >
             <div className="card-body">
                 <div className="flex gap-2 items-center">
@@ -64,8 +72,8 @@ const MyReviews = () => {
                 <Rating style={{ maxWidth: 150 }} value={review.rating} />
               </label>
                 <p>Date: {review.reviewDate}</p>
-              <div className="card-actions justify-center mt-2">
-                <button className="btn btn-primary">Update</button>
+             <div className="card-actions justify-center mt-2">
+            <button className="btn btn-primary" onClick={()=>document.getElementById('my_modal_3').showModal(review._id)}>Update</button>
                 <button onClick={()=>handleDelete(review._id)} className="btn btn-primary">Delete</button>
               </div>
             </div>

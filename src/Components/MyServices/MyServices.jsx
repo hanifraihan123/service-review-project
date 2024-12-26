@@ -1,42 +1,33 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 
 const MyServices = () => {
   const { email } = useParams();
   const [services, setServices] = useState([]);
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    const fetchSingleData = async () => {
-      const { data } = await axios.get(
-        `https://service-review-system-server.vercel.app/services/${email}?search=${search}`,
-        { withCredentials: true }
-      );
-      setServices(data);
-    };
-    fetchSingleData();
-  }, [search]);
+  const axiosSecure = useAxiosSecure()
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const title = form.title.value;
-    const price = form.price.value;
-    const category = form.category.value;
-    const updatedData = { title, price, category };
-    console.log(updatedData)
-    // const { data } = axios.patch(
-    //   `https://service-review-system-server.vercel.app/services/${id}`,updatedData
-    // );
-    // console.log(data);
+  const fetchSingleData = async () => {
+    const { data } = await axiosSecure.get(`/services/${email}?search=${search}`);
+    setServices(data);
+  };
+
+  useEffect(() => {
+    
+    fetchSingleData();
+  }, [services,search]);
+
+  const handleUpdate = (id) => {
+    console.log(id);
   };
 
   const handleDelete = async (id) => {
-    const { data } = await axios.delete(
-      `https://service-review-system-server.vercel.app/service/${id}`
-    );
+    const { data } = await axiosSecure.delete(`/service/${id}`);
     if (data.deletedCount > 0) {
       toast.success("Service Deleted Successfully");
       fetchSingleData();
@@ -72,6 +63,9 @@ const MyServices = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>My Services</title>
+      </Helmet>
       <div className="text-center mt-4 flex justify-center gap-2 px-2">
         <input
           type="text"
@@ -83,7 +77,7 @@ const MyServices = () => {
           Search
         </button>
       </div>
-      <div className="overflow-x-auto my-4">
+      <div className="overflow-x-auto my-4 w-full">
         <table className="table">
           {/* head */}
           <thead>
@@ -141,6 +135,7 @@ const MyServices = () => {
                           <input
                             type="text"
                             name="title"
+                            defaultValue={service?.title}
                             placeholder="Title"
                             className="input input-bordered"
                           />
@@ -154,6 +149,7 @@ const MyServices = () => {
                             name="price"
                             placeholder="Price"
                             className="input input-bordered"
+                            defaultValue={service?.price}
                           />
                         </div>
                         <div className="form-control w-full">
@@ -162,10 +158,10 @@ const MyServices = () => {
                           </label>
                           <select
                             name="category"
-                            required
+                            defaultValue={service.category}
                             className="select select-bordered w-full"
                           >
-                            <option defaultValue={true}>Select One</option>
+                            <option>Select One</option>
                             <option>Electronics</option>
                             <option>Automobiles</option>
                             <option>Transport</option>
@@ -173,8 +169,16 @@ const MyServices = () => {
                             <option>Travel Agency</option>
                           </select>
                         </div>
-                        <div className="flex gap-2 my-2 justify-center">
-                          <button className="btn">Update</button>
+                        <p className="text-center py-2">
+                          Press ESC key to cancel
+                        </p>
+                        <div className="flex my-2 justify-center">
+                          <button
+                            onClick={() => handleUpdate(service._id)}
+                            className="btn"
+                          >
+                            Update
+                          </button>
                         </div>
                       </form>
                     </div>

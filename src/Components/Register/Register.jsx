@@ -73,25 +73,25 @@ const Register = () => {
           <label className="label">
             <span className="label-text">Name</span>
           </label>
-          <input type="text" name="name" placeholder="Name" className="input input-bordered" required />
+          <input type="text" name="name" placeholder="Name" className="input input-bordered w-full" required />
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Photo URL</span>
           </label>
-          <input type="url" name="photo" placeholder="Photo URL" className="input input-bordered" required />
+          <input type="url" name="photo" placeholder="Photo URL" className="input input-bordered w-full" required />
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Email</span>
           </label>
-          <input type="email" name="email" placeholder="email" className="input input-bordered" required />
+          <input type="email" name="email" placeholder="email" className="input input-bordered w-full" required />
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Password</span>
           </label>
-          <input type="password" name="password" placeholder="password" className="input input-bordered" required />
+          <input type="password" name="password" placeholder="password" className="w-full input input-bordered" required />
         </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary">Register</button>

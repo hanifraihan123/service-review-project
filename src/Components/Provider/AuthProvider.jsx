@@ -44,24 +44,34 @@ const AuthProvider = ({children}) => {
             setUser(currentUser);
             if(currentUser?.email){
                 const user = {email: currentUser.email};
-                axios.post('https://service-review-system-server.vercel.app/jwt', user, {
+                axios.post('http://localhost:5000/jwt', user, {
                     withCredentials: true
                 })
                 .then(res=>{
-                    // console.log('login token', res.data);
                     setLoading(false)
                 })
             }
             else{
-                axios.post('https://service-review-system-server.vercel.app/logout', {}, {withCredentials: true})
+                axios.post('http://localhost:5000/logout', {}, {withCredentials: true})
                 .then(res=>{
-                    // console.log('logout', res.data);
                     setLoading(false)
                 })
             }
         });
         return () => unsubscribe();
     }, []);
+
+    useEffect(()=>{
+        const name = user?.displayName;
+        const email = user?.email;
+        const photo = user?.photoURL;
+        const usersData = {name,email,photo};
+        axios.post('http://localhost:5000/addUser',usersData)
+        .then(res=>{
+            console.log(res.data)
+        })
+},[user?.email])
+
 
     const authInfo = {
        user,

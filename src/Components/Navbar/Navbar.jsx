@@ -39,11 +39,11 @@ const Navbar = () => {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[2] mt-2 w-28 space-y-1 p-2 shadow">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/service">Services</NavLink>
           {
-        user && <><NavLink to="/addService">Add Service</NavLink> <NavLink to="/myReviews">My Reviews</NavLink> </>
+        user && <><NavLink to="/addService">Add Service</NavLink> <NavLink to="/myReviews">My Reviews</NavLink> <NavLink to={`/myServices/${user?.email}`}>My Services</NavLink></>
       }
       </ul>
     </div>

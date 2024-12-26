@@ -5,7 +5,7 @@ const ServiceCard = ({service}) => {
 
 
     return (
-        <div className="card bg-violet-100 w-96 shadow-xl">
+        <div className="card bg-violet-100 lg:w-96 shadow-xl">
         <figure>
           <img className="h-36 w-full object-cover" src={service.image}/>
         </figure>

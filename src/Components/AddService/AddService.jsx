@@ -3,6 +3,8 @@ import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import useAxiosSecure from "../Hook/useAxiosSecure";
 
 const AddService = () => {
   const { user } = useContext(AuthContext);
@@ -23,7 +25,9 @@ const AddService = () => {
 
     const formData = { image, title, company, website, price, category, description, date, email };
 
-    axios.post("https://service-review-system-server.vercel.app/addService", formData)
+    const axiosSecure = useAxiosSecure()
+
+    axiosSecure.post("/addService", formData)
     .then(response => {
         if(response.data.insertedId){
             form.reset();
@@ -31,14 +35,16 @@ const AddService = () => {
             navigate(`/myServices/${user?.email}`)
         }
     })
-
   };
 
   return (
     <div>
+     <Helmet>
+       <title>Add Services</title>
+     </Helmet>
       <h3 className="font-bold text-2xl text-center pt-4">Add Service</h3>
       <form onSubmit={handleSubmit} className="card-body pt-2">
-        <div className="flex gap-4">
+        <div className="lg:flex gap-4">
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Service Image</span>
@@ -64,7 +70,7 @@ const AddService = () => {
             />
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="lg:flex gap-4">
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Company Name</span>
@@ -90,7 +96,7 @@ const AddService = () => {
             />
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="lg:flex gap-4">
         <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Price</span>
@@ -124,17 +130,11 @@ const AddService = () => {
             <label className="label">
               <span className="label-text">Description</span>
             </label>
-            {/* <input
-              type="text"
-              placeholder="Description"
-              className="input input-bordered"
-              required
-            /> */}
             <textarea name="description" placeholder="Description"
               className="input input-bordered"
               required></textarea>
           </div>
-          <div className="flex gap-4">
+          <div className="lg:flex gap-4">
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text">Date</span>

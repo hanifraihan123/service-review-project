@@ -4,22 +4,18 @@ import ExtraSection from "./ExtraSection/ExtraSection";
 import FeaturedSection from "./Featured/FeaturedSection";
 import MeetOurPartner from "./MeetOurPartner/MeetOurPartner";
 import Statistics from "./Statistics/Statistics";
+import { Helmet } from 'react-helmet-async';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Home = () => {
 
-    
 
     return (
         <div>
-            <div>
-            <CountUp start={0} end={100} delay={0}>
-  {({ countUpRef }) => (
-    <div>
-      <span ref={countUpRef} />
-    </div>
-  )}
-</CountUp>
-            </div>
+             <Helmet>
+        <title>Home</title>
+      </Helmet>
             <Banner></Banner>
             <FeaturedSection></FeaturedSection>
             <MeetOurPartner></MeetOurPartner>
