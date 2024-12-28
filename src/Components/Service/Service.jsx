@@ -9,6 +9,43 @@ const Service = () => {
     const [services, setServices] = useState([])
     const [filter,setFilter] = useState('');
     const [search,setSearch] = useState('');
+    const [currentPage,setCurrentPage] = useState(0)
+    const [itemsPerPage,setItemsPerPage] = useState(10)
+    const [count,setCount] = useState(50)
+    const [service,setService] = useState([])
+  
+    const servicePerPage = 5;
+    const numberOfPages = Math.ceil(count/servicePerPage)
+    const pages = [...Array(numberOfPages).keys()]
+
+    const handleItemsPerPage = e => {
+      const val = parseInt(e.target.value);
+      setItemsPerPage(val)
+      setCurrentPage(0)
+  }
+
+  const handlePrevPage = () => {
+    if(currentPage > 0){
+        setCurrentPage(currentPage - 1)
+    }
+}
+
+const handleNextPage = () => {
+    if(currentPage < pages.length -1){
+        setCurrentPage(currentPage + 1)
+    }
+}
+
+    useEffect(()=>{
+      axios.get('http://localhost:5000/serviceCount')
+      .then(res=>{
+        setCount(res.data.count)
+      })
+      axios.get(`http://localhost:5000/servicePage?page=${currentPage}&size=${itemsPerPage}`)
+            .then(res => {
+              setService(res.data)
+            })
+    },[service.length,count.length])
 
     useEffect(()=>{
        const fetchAllService = async () => {
@@ -58,6 +95,20 @@ const Service = () => {
             {
                 services.map(service=><ServiceCard key={service._id} service={service}></ServiceCard>)
             }
+            </div>
+            <div className="text-center space-x-4 pb-4">
+            <p className='mb-4 text-center font-bold'>Current Page: {currentPage+1}</p>
+                <button className='btn' onClick={handlePrevPage}>Prev</button>
+                {
+                    pages.map((page,index)=><button className={currentPage === page ? 'bg-orange-300 p-2 border-2' : 'p-2 border-2'} onClick={()=>setCurrentPage(page)} key={page}>{page + 1}</button>)
+                }
+                <button className='btn' onClick={handleNextPage}>Next</button>
+                <select className='p-2 border-2' value={itemsPerPage} onChange={handleItemsPerPage} name="" id="">
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                    <option value="8">8</option>
+                </select>
             </div>
         </div>
     );

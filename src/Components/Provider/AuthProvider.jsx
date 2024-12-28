@@ -68,10 +68,8 @@ const AuthProvider = ({children}) => {
         const usersData = {name,email,photo};
         axios.post('http://localhost:5000/addUser',usersData)
         .then(res=>{
-            console.log(res.data)
         })
-},[user?.email])
-
+    },[user?.email])
 
     const authInfo = {
        user,

@@ -1,36 +1,52 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../Hook/useAxiosSecure";
+import Modal from "../Modal/Modal";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const MyServices = () => {
   const { email } = useParams();
   const [services, setServices] = useState([]);
   const [search, setSearch] = useState("");
+  const [service,setService] = useState({})
+  const {loading,setLoading} = useContext(AuthContext)
+
+  if(loading) <><span className="loading loading-bars loading-xs"></span>
+    <span className="loading loading-bars loading-sm"></span>
+    <span className="loading loading-bars loading-md"></span>
+    <span className="loading loading-bars loading-lg"></span></>
+
 
   const axiosSecure = useAxiosSecure()
 
-  const fetchSingleData = async () => {
+  const fetchAllService = async () => {
     const { data } = await axiosSecure.get(`/services/${email}?search=${search}`);
     setServices(data);
   };
 
   useEffect(() => {
     
-    fetchSingleData();
-  }, [services,search]);
+    fetchAllService();
+    setLoading(false)
+  }, [search]);
 
-  const handleUpdate = (id) => {
-    console.log(id);
-  };
+  const handleUpdate = async(id) => {
+    document.getElementById("customModal").showModal()
+    await axios.get(`http://localhost:5000/service/${id}`)
+    .then(res=>{
+      setService(res.data)
+      setLoading(false)
+    })
+  }
 
   const handleDelete = async (id) => {
     const { data } = await axiosSecure.delete(`/service/${id}`);
     if (data.deletedCount > 0) {
       toast.success("Service Deleted Successfully");
-      fetchSingleData();
+      fetchAllService();
     }
   };
 
@@ -85,6 +101,7 @@ const MyServices = () => {
               <th>Serial</th>
               <th>User</th>
               <th>Title</th>
+              <th>Price</th>
               <th>Category</th>
               <th>Modify</th>
               <th>Delete</th>
@@ -96,99 +113,20 @@ const MyServices = () => {
                 <th>{index + 1}</th>
                 <td>{email}</td>
                 <td>{service.title}</td>
+                <td>{service.price}</td>
                 <td>{service.category}</td>
                 <td>
-                  <button
-                    className="btn"
-                    onClick={() =>
-                      document.getElementById("updateModal").showModal()
-                    }
-                  >
-                    Update
-                  </button>
+                  <button className="btn" onClick={()=>handleUpdate(service._id)}>Update</button>
                 </td>
                 <td>
-                  <button
-                    onClick={() => standardDelete(service._id)}
-                    className="btn"
-                  >
-                    X
-                  </button>
+                  <button onClick={() => standardDelete(service._id)} className="btn">X</button>
                 </td>
-                {/* Modal */}
-                <dialog
-                  id="updateModal"
-                  className="modal modal-bottom sm:modal-middle"
-                >
-                  <div className="modal-box">
-                    <h3 className="font-bold text-lg">Update Service Data</h3>
-                    <div className="modal-action">
-                      <form
-                        onSubmit={handleSubmit}
-                        method="dialog"
-                        className="w-full"
-                      >
-                        <div className="form-control">
-                          <label className="label">
-                            <span className="label-text">Title</span>
-                          </label>
-                          <input
-                            type="text"
-                            name="title"
-                            defaultValue={service?.title}
-                            placeholder="Title"
-                            className="input input-bordered"
-                          />
-                        </div>
-                        <div className="form-control">
-                          <label className="label">
-                            <span className="label-text">Price</span>
-                          </label>
-                          <input
-                            type="number"
-                            name="price"
-                            placeholder="Price"
-                            className="input input-bordered"
-                            defaultValue={service?.price}
-                          />
-                        </div>
-                        <div className="form-control w-full">
-                          <label className="label">
-                            <span className="label-text">Category</span>
-                          </label>
-                          <select
-                            name="category"
-                            defaultValue={service.category}
-                            className="select select-bordered w-full"
-                          >
-                            <option>Select One</option>
-                            <option>Electronics</option>
-                            <option>Automobiles</option>
-                            <option>Transport</option>
-                            <option>Restaurant</option>
-                            <option>Travel Agency</option>
-                          </select>
-                        </div>
-                        <p className="text-center py-2">
-                          Press ESC key to cancel
-                        </p>
-                        <div className="flex my-2 justify-center">
-                          <button
-                            onClick={() => handleUpdate(service._id)}
-                            className="btn"
-                          >
-                            Update
-                          </button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </dialog>
               </tr>
             </tbody>
           ))}
         </table>
       </div>
+      <Modal service={service} fetchAllService={fetchAllService}></Modal>
     </div>
   );
 };

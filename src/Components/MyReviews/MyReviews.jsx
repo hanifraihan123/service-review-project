@@ -5,21 +5,32 @@ import { Rating } from "@smastrom/react-rating";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../Hook/useAxiosSecure";
+import ReviewModal from "../Modal/ReviewModal";
 
 const MyReviews = () => {
-  const { user } = useContext(AuthContext);
+  const { user,loading,setLoading } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
-  const [rating,setRating] = useState();
+  const [review,setReview] = useState({});
 
   useEffect(() => {
     fetchAllReviews()
+    setLoading(false)
   }, [user]);
 
   const axiosSecure = useAxiosSecure()
 
   const fetchAllReviews = async() => {
+
     const {data} = await axiosSecure.get(`/review/${user?.email}`)
-        setReviews(data);
+        setReviews(data)
+        setLoading(false);
+  }
+
+  const handleUpdate = async(id) => {
+    document.getElementById("reviewModal").showModal()
+    const {data} = await axios.get(`http://localhost:5000/update/review/${id}`,{withCredentials: true})
+    setReview(data)
+    setLoading(false)
   }
  
   const handleDelete = id => {
@@ -42,6 +53,7 @@ const MyReviews = () => {
                     icon: "success"
                   });
                   fetchAllReviews();
+                  setLoading(false)
             }
             })
         }
@@ -73,13 +85,14 @@ const MyReviews = () => {
               </label>
                 <p>Date: {review.reviewDate}</p>
              <div className="card-actions justify-center mt-2">
-            <button className="btn btn-primary" onClick={()=>document.getElementById('my_modal_3').showModal(review._id)}>Update</button>
+            <button className="btn btn-primary" onClick={()=>handleUpdate(review._id)}>Update</button>
                 <button onClick={()=>handleDelete(review._id)} className="btn btn-primary">Delete</button>
               </div>
             </div>
           </div>
         ))}
       </div>
+      <ReviewModal review={review} fetchAllReviews={fetchAllReviews}></ReviewModal>
     </div>
   );
 };

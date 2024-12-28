@@ -9,6 +9,7 @@ import useAxiosSecure from "../Hook/useAxiosSecure";
 const AddService = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ const AddService = () => {
 
     const formData = { image, title, company, website, price, category, description, date, email };
 
-    const axiosSecure = useAxiosSecure()
+    
 
     axiosSecure.post("/addService", formData)
     .then(response => {
