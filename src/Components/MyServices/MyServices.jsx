@@ -35,7 +35,7 @@ const MyServices = () => {
 
   const handleUpdate = async(id) => {
     document.getElementById("customModal").showModal()
-    await axios.get(`http://localhost:5000/service/${id}`)
+    await axios.get(`https://service-review-system-server.vercel.app/service/${id}`)
     .then(res=>{
       setService(res.data)
       setLoading(false)

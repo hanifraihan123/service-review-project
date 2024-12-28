@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://service-review-system-server.vercel.app',
     withCredentials: true
 });
 

@@ -4,12 +4,6 @@ const Footer = () => {
         <footer className="footer footer-center gap-y-4 bg-base-200 text-base-content rounded p-10">
             <h3 className="font-bold text-xl">Service Review Agencies Ltd</h3>
             <p>Assertively pursue excellent deliverables after virtual manufactured products. <br /> Interactively procrastinate adaptive supply chains vis-a-vis optimal experiences.</p>
-  <nav className="grid grid-flow-col gap-4">
-    <a className="link link-hover">About us</a>
-    <a className="link link-hover">Contact</a>
-    <a className="link link-hover">Jobs</a>
-    <a className="link link-hover">Press kit</a>
-  </nav>
   <nav>
     <div className="grid grid-flow-col gap-4">
       <a>
