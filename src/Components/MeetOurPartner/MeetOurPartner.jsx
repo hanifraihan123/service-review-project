@@ -1,9 +1,8 @@
-import { motion } from "motion/react"
 
 const MeetOurPartner = () => {
     return (
         <div className="bg-gray-300">
-            <motion.h3 whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="text-center font-bold text-2xl py-4">Meet Our Partners</motion.h3>
+            <h3 className="text-center font-bold text-2xl py-4">Meet Our Partners</h3>
             <p className="text-center text-sm">Monotonectally embrace interdependent technology after interdependent supply chains. <br />Credibly e-enable proactive infrastructures with team building strategic theme areas.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-6 py-4">
                 <div className="bg-yellow-200 rounded-lg p-4 space-y-2">

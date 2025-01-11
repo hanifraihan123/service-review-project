@@ -14,7 +14,7 @@ const ReviewModal = ({review,fetchAllReviews}) => {
     const review = form.review.value;
     const updatedData = { review,rating };
     
-    axios.patch(`https://service-review-system-server.vercel.app/review/${_id}`,updatedData,{withCredentials: true})
+    axios.patch(`http://localhost:5000/review/${_id}`,updatedData,{withCredentials: true})
     .then(res=>{
       if(res.data.modifiedCount > 0) {
         toast.success('Review Updated Successfully')

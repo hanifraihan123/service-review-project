@@ -9,11 +9,11 @@ const Statistics = () => {
       const [users,setUsers] = useState([])
   
       useEffect(()=>{
-        axios.get('https://service-review-system-server.vercel.app/allService')
+        axios.get('http://localhost:5000/allService')
         .then(res=>setServices(res.data))
-        axios.get('https://service-review-system-server.vercel.app/reviews')
+        axios.get('http://localhost:5000/reviews')
         .then(res=>setReviews(res.data))
-        axios.get('https://service-review-system-server.vercel.app/users')
+        axios.get('http://localhost:5000/users')
         .then(res=>setUsers(res.data))
       },[services.length,reviews.length,users.length])
   

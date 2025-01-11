@@ -9,59 +9,62 @@ const Service = () => {
     const [services, setServices] = useState([])
     const [filter,setFilter] = useState('');
     const [search,setSearch] = useState('');
-    const [currentPage,setCurrentPage] = useState(0)
-    const [itemsPerPage,setItemsPerPage] = useState(10)
-    const [count,setCount] = useState(50)
-    const [service,setService] = useState([])
+    const [loading,setLoading] = useState(true);
+    // const [service,setService] = useState([])
+    // const [currentPage,setCurrentPage] = useState(0)
+    // const [itemsPerPage,setItemsPerPage] = useState(10)
+    // const [count,setCount] = useState(50)
   
-    const servicePerPage = 5;
-    const numberOfPages = Math.ceil(count/servicePerPage)
-    const pages = [...Array(numberOfPages).keys()]
+    // const servicePerPage = 5;
+    // const numberOfPages = Math.ceil(count/servicePerPage)
+    // const pages = [...Array(numberOfPages).keys()]
 
-    const handleItemsPerPage = e => {
-      const val = parseInt(e.target.value);
-      setItemsPerPage(val)
-      setCurrentPage(0)
-  }
+  // const handlePrevPage = () => {
+  //   if(currentPage > 0){
+  //       setCurrentPage(currentPage - 1)
+  //   }
+  // }
 
-  const handlePrevPage = () => {
-    if(currentPage > 0){
-        setCurrentPage(currentPage - 1)
-    }
-}
+  // const handleNextPage = () => {
+  //   if(currentPage < pages.length -1){
+  //       setCurrentPage(currentPage + 1)
+  //   }
+  // }
 
-const handleNextPage = () => {
-    if(currentPage < pages.length -1){
-        setCurrentPage(currentPage + 1)
-    }
-}
-
-    useEffect(()=>{
-      axios.get('https://service-review-system-server.vercel.app/serviceCount')
-      .then(res=>{
-        setCount(res.data.count)
-      })
-      axios.get(`https://service-review-system-server.vercel.app/servicePage?page=${currentPage}&size=${itemsPerPage}`)
-            .then(res => {
-              setService(res.data)
-            })
-    },[service.length,count.length])
+    // useEffect(()=>{
+    //  await axios.get('http://localhost:5000/serviceCount')
+    //   .then(res=>{
+    //     setCount(res.data.count)
+    //   })
+    //   axios.get(`http://localhost:5000/servicePage?page=${currentPage}&size=${itemsPerPage}`)
+    //   .then(res => {
+    //     setService(res.data)
+    //   })
+    // },[service.length])
 
     useEffect(()=>{
        const fetchAllService = async () => {
-        const {data} = await axios.get(`https://service-review-system-server.vercel.app/services?filter=${filter}&search=${search}`,{withCredentials: true})
+        const {data} = await axios.get(`http://localhost:5000/services?filter=${filter}&search=${search}`,{withCredentials: true})
         setServices(data)
        } 
+       setLoading(false)
         fetchAllService()
     },[filter,search]) 
 
+    if(loading){
+      return (
+        <div>
+          <span className="loading loading-bars loading-lg"></span>
+        </div>
+      )
+    }
 
     return (
-        <div className="bg-violet-300">
+        <div className="bg-violet-300 px-2">
                <Helmet>
-                  <title>Services</title>
+                  <title>Service Review || Services</title>
                 </Helmet>
-           <div className="lg:flex gap-4 justify-center text-center items-center pt-4 space-y-2">
+           <div className="lg:flex gap-4 justify-center text-center items-center pt-4">
            <div>
             <select
               name='category'
@@ -91,25 +94,19 @@ const handleNextPage = () => {
               </button>
             </div>
            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:pl-6 lg:py-6 px-4 py-4 space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
             {
                 services.map(service=><ServiceCard key={service._id} service={service}></ServiceCard>)
             }
             </div>
-            <div className="text-center space-x-4 pb-4">
+            {/* <div className="text-center space-x-4 pb-4">
             <p className='mb-4 text-center font-bold'>Current Page: {currentPage+1}</p>
                 <button className='btn' onClick={handlePrevPage}>Prev</button>
                 {
                     pages.map((page,index)=><button className={currentPage === page ? 'bg-orange-300 p-2 border-2' : 'p-2 border-2'} onClick={()=>setCurrentPage(page)} key={page}>{page + 1}</button>)
                 }
                 <button className='btn' onClick={handleNextPage}>Next</button>
-                <select className='p-2 border-2' value={itemsPerPage} onChange={handleItemsPerPage} name="" id="">
-                    <option value="2">2</option>
-                    <option value="4">4</option>
-                    <option value="6">6</option>
-                    <option value="8">8</option>
-                </select>
-            </div>
+            </div> */}
         </div>
     );
 };

@@ -41,7 +41,7 @@ const AddService = () => {
   return (
     <div>
      <Helmet>
-       <title>Add Services</title>
+       <title>Service Review || Add</title>
      </Helmet>
       <h3 className="font-bold text-2xl text-center pt-4">Add Service</h3>
       <form onSubmit={handleSubmit} className="card-body pt-2">

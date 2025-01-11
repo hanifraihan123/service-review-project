@@ -9,7 +9,7 @@ import axios from "axios";
 
 const Login = () => {
 
-  const {userLogin,logInWithGoogle,user} = useContext(AuthContext);
+  const {userLogin,logInWithGoogle} = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 

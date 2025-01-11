@@ -6,10 +6,12 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../Hook/useAxiosSecure";
 import ReviewModal from "../Modal/ReviewModal";
+import { div } from "motion/react-client";
 
 const MyReviews = () => {
-  const { user,loading,setLoading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
+  const [loading,setLoading] = useState(true);
   const [review,setReview] = useState({});
 
   useEffect(() => {
@@ -17,6 +19,7 @@ const MyReviews = () => {
     setLoading(false)
   }, [user]);
 
+ 
   const axiosSecure = useAxiosSecure()
 
   const fetchAllReviews = async() => {
@@ -26,9 +29,17 @@ const MyReviews = () => {
         setLoading(false);
   }
 
+  if(loading){
+    return (
+      <div>
+        <span className="loading loading-bars loading-lg"></span>
+      </div>
+    )
+  }
+
   const handleUpdate = async(id) => {
     document.getElementById("reviewModal").showModal()
-    const {data} = await axios.get(`https://service-review-system-server.vercel.app/update/review/${id}`,{withCredentials: true})
+    const {data} = await axios.get(`http://localhost:5000/update/review/${id}`,{withCredentials: true})
     setReview(data)
     setLoading(false)
   }
@@ -61,9 +72,9 @@ const MyReviews = () => {
   }
 
   return (
-    <div className="flex flex-col gap-2 items-center bg-fuchsia-400">
+    <div className="flex flex-col gap-2 items-center bg-fuchsia-400 min-h-screen">
       <Helmet>
-        <title>My Reviews</title>
+        <title>Service Review || Reviews</title>
       </Helmet>
       <div className="space-y-4 my-4">
         {reviews.map((review) => (
