@@ -39,21 +39,12 @@ const AuthProvider = ({children}) => {
         return await signOut(auth);
     }
 
-    
-    // const userSaveData = async() => {
-    // const name = user?.data;
-    // const email = user?.email;
-    // const photo = user?.photoURL;
-    // const usersData = {name,email,photo};
-    // return await axios.post('http://localhost:5000/addUser',{user: usersData})
-    // }
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth,currentUser => {
             setUser(currentUser);
             if(currentUser?.email){
                 const user = {email: currentUser.email};
-                axios.post('http://localhost:5000/jwt', user, {
+                axios.post('https://service-review-system-server.vercel.app/jwt', user, {
                     withCredentials: true
                 })
                 .then(res=>{
@@ -61,7 +52,7 @@ const AuthProvider = ({children}) => {
                 })
             }
             else{
-                axios.post('http://localhost:5000/logout', {}, {withCredentials: true})
+                axios.post('https://service-review-system-server.vercel.app/logout', {}, {withCredentials: true})
                 .then(res=>{
                     setLoading(false)
                 })
@@ -70,14 +61,14 @@ const AuthProvider = ({children}) => {
         return () => unsubscribe();
     }, []);
 
-    useEffect(()=>{
-        const name = user?.displayName;
-        const email = user?.email;
-        const photo = user?.photoURL;
-        const usersData = {name,email,photo};
-        axios.post('http://localhost:5000/addUser',usersData)
-        .then(res=>{console.log(res.data)})
-    },[user?.email])
+    // useEffect(()=>{
+    //     const name = user?.displayName;
+    //     const email = user?.email;
+    //     const photo = user?.photoURL;
+    //     const usersData = {name,email,photo};
+    //     axios.post('https://service-review-system-server.vercel.app/addUser',usersData)
+    //     .then(res=>{console.log(res.data)})
+    // },[user?.email])
 
     const authInfo = {
        user,
@@ -88,7 +79,6 @@ const AuthProvider = ({children}) => {
        logInWithGoogle,
        updateUserProfile,
        logOut,
-    //    userSaveData
     }
 
     return <AuthContext.Provider value={authInfo}>

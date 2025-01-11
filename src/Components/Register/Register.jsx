@@ -4,6 +4,7 @@ import register from "../../assets/register.json"
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import toast from 'react-hot-toast';
+import axios from "axios";
 
 
 const Register = () => {
@@ -35,8 +36,14 @@ const Register = () => {
       else{
         updateUserProfile({displayName:name,photoURL:photo})
         .then(()=>{
-          toast.success('Login Succesfully')
-          navigate('/')
+          const userInfo = {name,email,photo}
+          axios.post('https://service-review-system-server.vercel.app/addUser',userInfo)
+          .then(res=>{
+            if(res.data.insertedId){
+              toast.success('Login Succesfully')
+              navigate('/')
+            }
+          })
         })
         .catch(error=>{ 
           toast.error(error.message)
@@ -52,8 +59,17 @@ const Register = () => {
     logInWithGoogle()
     .then(result=>{
       if(result.user){
-        toast.success('Login Succesfully')
-        navigate(location.state ||'/')
+        const name = result.user.displayName;
+        const email = result.user.email;
+        const photo = result.user.photoURL;
+        const userInfo = {name,email,photo}
+          axios.post('https://service-review-system-server.vercel.app/addUser',userInfo)
+          .then(res=>{
+            if(res.data){
+              toast.success('Login Succesfully')
+              navigate(location.state ||'/')
+            }
+          })
       }
     })
     .catch(error=>{
