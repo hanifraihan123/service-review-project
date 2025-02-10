@@ -32,11 +32,11 @@ const Service = () => {
   // }
 
     // useEffect(()=>{
-    //  await axios.get('https://service-review-system-server.vercel.app/serviceCount')
+    //  await axios.get('http://localhost:5000/serviceCount')
     //   .then(res=>{
     //     setCount(res.data.count)
     //   })
-    //   axios.get(`https://service-review-system-server.vercel.app/servicePage?page=${currentPage}&size=${itemsPerPage}`)
+    //   axios.get(`http://localhost:5000/servicePage?page=${currentPage}&size=${itemsPerPage}`)
     //   .then(res => {
     //     setService(res.data)
     //   })
@@ -44,7 +44,7 @@ const Service = () => {
 
     useEffect(()=>{
        const fetchAllService = async () => {
-        const {data} = await axios.get(`https://service-review-system-server.vercel.app/services?filter=${filter}&search=${search}`,{withCredentials: true})
+        const {data} = await axios.get(`http://localhost:5000/services?filter=${filter}&search=${search}`,{withCredentials: true})
         setServices(data)
        } 
        setLoading(false)

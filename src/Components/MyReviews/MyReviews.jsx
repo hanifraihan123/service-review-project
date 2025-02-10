@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import useAxiosSecure from "../Hook/useAxiosSecure";
 import ReviewModal from "../Modal/ReviewModal";
-import { div } from "motion/react-client";
+
 
 const MyReviews = () => {
   const { user } = useContext(AuthContext);
@@ -39,7 +39,7 @@ const MyReviews = () => {
 
   const handleUpdate = async(id) => {
     document.getElementById("reviewModal").showModal()
-    const {data} = await axios.get(`https://service-review-system-server.vercel.app/update/review/${id}`,{withCredentials: true})
+    const {data} = await axios.get(`http://localhost:5000/update/review/${id}`,{withCredentials: true})
     setReview(data)
     setLoading(false)
   }

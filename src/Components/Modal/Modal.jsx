@@ -16,7 +16,7 @@ const Modal = ({ service ,fetchAllService}) => {
     const price = parseFloat(updatePrice);
     const updatedData = { title,price,category };
     
-    axios.patch(`https://service-review-system-server.vercel.app/services/${_id}`,updatedData,{withCredentials: true})
+    axios.patch(`http://localhost:5000/services/${_id}`,updatedData,{withCredentials: true})
     .then(res=>{
       if(res.data.modifiedCount > 0) {
         toast.success('Service Updated Successfully')
