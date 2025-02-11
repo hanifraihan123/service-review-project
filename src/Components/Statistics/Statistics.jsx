@@ -18,7 +18,7 @@ const Statistics = () => {
       },[services.length,reviews.length,users.length])
   
     return (
-        <div className="text-center lg:py-6 p-2 bg-red-200 lg:px-6">
+        <div className="text-center lg:py-6 py-4 px-6 bg-red-200 lg:px-6">
             <div className="stats inline-block lg:inline-flex gap-4 shadow w-full bg-sky-200">
   <div className="stat">
     <div className="stat-figure text-secondary">

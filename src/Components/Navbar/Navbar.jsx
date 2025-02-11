@@ -20,7 +20,7 @@ const Navbar = () => {
   }
 
     return (
-        <div className="navbar bg-gradient-to-r from-purple-500 to-pink-500 px-6 fixed z-10">
+        <div className="navbar bg-gradient-to-r from-cyan-500 to-blue-500 px-6 fixed z-10">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -39,7 +39,7 @@ const Navbar = () => {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[2] mt-2 w-28 space-y-1 p-2 shadow">
+        className="menu menu-sm dropdown-content text-white rounded-box z-[2] mt-2 w-28 space-y-1 p-2 shadow">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/service">Services</NavLink>
           {
@@ -47,11 +47,11 @@ const Navbar = () => {
       }
       </ul>
     </div>
-    <img className="h-12 w-12 rounded-full" src="https://i.ibb.co.com/6mcCmGK/verified-reviews-vector-icons-logo-trust-badges-images-526569-1300.jpg" alt="" />
+    <Link to="/"><img className="h-12 w-12 rounded-full" src="https://i.ibb.co.com/6mcCmGK/verified-reviews-vector-icons-logo-trust-badges-images-526569-1300.jpg" alt="" /></Link>
     <motion.h3 animate={{x:10,color: ['#f8f9f2','#33ffe3','#74ff33','#33fff6','#f5f50e']}} transition={{duration:2,delay:1,ease:easeInOut,repeat:Infinity}} className="ml-4 font-bold text-2xl">Service <motion.span>Review</motion.span></motion.h3>
   </div>
   <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal flex gap-3 px-1">
+    <ul className="menu menu-horizontal text-white flex gap-3 px-1">
       <NavLink to="/">Home</NavLink>
       <NavLink to="/service">Services</NavLink>
       {
