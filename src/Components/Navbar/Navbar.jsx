@@ -42,6 +42,7 @@ const Navbar = () => {
         className="menu menu-sm dropdown-content rounded-box z-[10] bg-slate-200 w-24 space-y-2 p-2 shadow">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/service">Services</NavLink>
+          <NavLink to="/reviews">Reviews</NavLink>
           {
         user && <><NavLink to="/addService">Add Service</NavLink> <NavLink to="/myReviews">My Reviews</NavLink> <NavLink to={`/myServices/${user?.email}`}>My Services</NavLink></>
       }
@@ -54,6 +55,7 @@ const Navbar = () => {
     <ul className="menu menu-horizontal flex gap-3 px-1">
       <NavLink to="/">Home</NavLink>
       <NavLink to="/service">Services</NavLink>
+      <NavLink to="/reviews">Reviews</NavLink>
       {
         user && <><NavLink to="/addService">Add Service</NavLink> <NavLink to="/myReviews">My Reviews</NavLink> <NavLink to={`/myServices/${user?.email}`}>My Services</NavLink> </>
       }
