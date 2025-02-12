@@ -60,7 +60,7 @@ const Service = () => {
     }
 
     return (
-        <div className="bg-violet-300 px-2">
+        <div className="bg-purple-300 px-2">
                <Helmet>
                   <title>Service Review || Services</title>
                 </Helmet>

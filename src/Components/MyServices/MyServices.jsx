@@ -78,11 +78,11 @@ const MyServices = () => {
   };
 
   return (
-    <div>
+    <div className="bg-purple-300">
       <Helmet>
         <title>Service Review || Services</title>
       </Helmet>
-      <div className="text-center mt-8 flex justify-center gap-2 px-2">
+      <div className="text-center pt-8 flex justify-center gap-2 px-2">
         <input
           type="text"
           onChange={(e) => setSearch(e.target.value)}
@@ -93,7 +93,7 @@ const MyServices = () => {
           Search
         </button>
       </div>
-      <div className="overflow-x-auto my-4 w-full">
+      <div className="overflow-x-auto py-4 w-full">
         <table className="table">
           {/* head */}
           <thead>
@@ -116,10 +116,10 @@ const MyServices = () => {
                 <td>{service.price}</td>
                 <td>{service.category}</td>
                 <td>
-                  <button className="btn" onClick={()=>handleUpdate(service._id)}>Update</button>
+                  <button className="btn bg-gradient-to-r from-cyan-500 to-blue-500 text-white" onClick={()=>handleUpdate(service._id)}>Update</button>
                 </td>
                 <td>
-                  <button onClick={() => standardDelete(service._id)} className="btn">X</button>
+                  <button onClick={() => standardDelete(service._id)} className="btn text-white bg-gradient-to-r from-purple-500 to-pink-500">X</button>
                 </td>
               </tr>
             </tbody>

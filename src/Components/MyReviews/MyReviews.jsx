@@ -72,7 +72,7 @@ const MyReviews = () => {
   }
 
   return (
-    <div className="bg-fuchsia-400">
+    <div className="bg-purple-300">
       <Helmet>
         <title>Service Review || Reviews</title>
       </Helmet>
@@ -96,8 +96,8 @@ const MyReviews = () => {
               </label>
                 <p>Date: {review.reviewDate}</p>
              <div className="card-actions justify-center mt-2">
-            <button className="btn btn-primary" onClick={()=>handleUpdate(review._id)}>Update</button>
-                <button onClick={()=>handleDelete(review._id)} className="btn btn-primary">Delete</button>
+            <button className="btn btn-primary bg-gradient-to-r from-cyan-500 to-blue-500" onClick={()=>handleUpdate(review._id)}>Update</button>
+                <button onClick={()=>handleDelete(review._id)} className="btn bg-gradient-to-r from-purple-500 to-pink-500 btn-primary">Delete</button>
               </div>
             </div>
           </div>

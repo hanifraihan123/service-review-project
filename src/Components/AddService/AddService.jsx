@@ -39,7 +39,7 @@ const AddService = () => {
   };
 
   return (
-    <div>
+    <div className="bg-purple-300">
      <Helmet>
        <title>Service Review || Add</title>
      </Helmet>
@@ -164,7 +164,7 @@ const AddService = () => {
           </div>
         </div>
         <div className="form-control mt-6">
-          <button className="btn btn-primary">Add Service</button>
+          <button className="btn btn-primary bg-gradient-to-r from-cyan-500 to-blue-500">Add Service</button>
         </div>
       </form>
     </div>
