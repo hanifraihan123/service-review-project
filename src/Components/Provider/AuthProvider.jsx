@@ -44,7 +44,7 @@ const AuthProvider = ({children}) => {
             setUser(currentUser);
             if(currentUser?.email){
                 const user = {email: currentUser.email};
-                axios.post('http://localhost:5000/jwt', user, {
+                axios.post('https://service-review-system-server.vercel.app/jwt', user, {
                     withCredentials: true
                 })
                 .then(res=>{
@@ -52,7 +52,7 @@ const AuthProvider = ({children}) => {
                 })
             }
             else{
-                axios.post('http://localhost:5000/logout', {}, {withCredentials: true})
+                axios.post('https://service-review-system-server.vercel.app/logout', {}, {withCredentials: true})
                 .then(res=>{
                     setLoading(false)
                 })
@@ -66,7 +66,7 @@ const AuthProvider = ({children}) => {
     //     const email = user?.email;
     //     const photo = user?.photoURL;
     //     const usersData = {name,email,photo};
-    //     axios.post('http://localhost:5000/addUser',usersData)
+    //     axios.post('https://service-review-system-server.vercel.app/addUser',usersData)
     //     .then(res=>{console.log(res.data)})
     // },[user?.email])
 

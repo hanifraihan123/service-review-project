@@ -39,7 +39,7 @@ const MyReviews = () => {
 
   const handleUpdate = async(id) => {
     document.getElementById("reviewModal").showModal()
-    const {data} = await axios.get(`http://localhost:5000/update/review/${id}`,{withCredentials: true})
+    const {data} = await axios.get(`https://service-review-system-server.vercel.app/update/review/${id}`,{withCredentials: true})
     setReview(data)
     setLoading(false)
   }

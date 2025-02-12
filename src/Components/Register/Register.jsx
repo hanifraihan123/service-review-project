@@ -37,7 +37,7 @@ const Register = () => {
         updateUserProfile({displayName:name,photoURL:photo})
         .then(()=>{
           const userInfo = {name,email,photo}
-          axios.post('http://localhost:5000/addUser',userInfo)
+          axios.post('https://service-review-system-server.vercel.app/addUser',userInfo)
           .then(res=>{
             if(res.data.insertedId){
               toast.success('Login Succesfully')
@@ -63,7 +63,7 @@ const Register = () => {
         const email = result.user.email;
         const photo = result.user.photoURL;
         const userInfo = {name,email,photo}
-          axios.post('http://localhost:5000/addUser',userInfo)
+          axios.post('https://service-review-system-server.vercel.app/addUser',userInfo)
           .then(res=>{
             if(res.data){
               toast.success('Login Succesfully')
