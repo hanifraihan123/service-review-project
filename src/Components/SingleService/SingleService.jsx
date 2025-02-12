@@ -62,7 +62,7 @@ const SingleService = () => {
   return (
     <div className="lg:px-32 md:px-20 px-6 items-center justify-center bg-lime-100 py-3 md:py-3 lg:py-6">
       <Helmet>
-       <title>Service Details</title>
+       <title>Service Review || Details</title>
       </Helmet>
         <div className="card lg:card-side bg-red-200 shadow-xl">
           <div className="card-body space-y-2">
@@ -89,7 +89,7 @@ const SingleService = () => {
             </div>
             </form>   
             </div>
-            <div className="w-1/2 mx-auto lg:space-y-4 space-y-2 py-6">
+            <div className="lg:w-1/2 lg:space-y-4 space-y-2 p-6">
             <h2 className="card-title">Title: {title}</h2>
             <p>Description: {description}</p>
             <p>Category: {category}</p>

@@ -82,7 +82,7 @@ const MyServices = () => {
       <Helmet>
         <title>Service Review || Services</title>
       </Helmet>
-      <div className="text-center mt-4 flex justify-center gap-2 px-2">
+      <div className="text-center mt-8 flex justify-center gap-2 px-2">
         <input
           type="text"
           onChange={(e) => setSearch(e.target.value)}

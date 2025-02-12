@@ -39,7 +39,7 @@ const Navbar = () => {
       </div>
       <ul
         tabIndex={0}
-        className="menu menu-sm dropdown-content text-white rounded-box z-[2] mt-2 w-28 space-y-1 p-2 shadow">
+        className="menu menu-sm dropdown-content rounded-box z-[10] bg-slate-200 w-24 space-y-2 p-2 shadow">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/service">Services</NavLink>
           {
@@ -51,7 +51,7 @@ const Navbar = () => {
     <motion.h3 animate={{x:10,color: ['#f8f9f2','#33ffe3','#74ff33','#33fff6','#f5f50e']}} transition={{duration:2,delay:1,ease:easeInOut,repeat:Infinity}} className="ml-4 font-bold text-2xl">Service <motion.span>Review</motion.span></motion.h3>
   </div>
   <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal text-white flex gap-3 px-1">
+    <ul className="menu menu-horizontal flex gap-3 px-1">
       <NavLink to="/">Home</NavLink>
       <NavLink to="/service">Services</NavLink>
       {

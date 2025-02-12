@@ -72,16 +72,16 @@ const MyReviews = () => {
   }
 
   return (
-    <div className="flex flex-col gap-2 items-center bg-fuchsia-400 min-h-screen">
+    <div className="bg-fuchsia-400">
       <Helmet>
         <title>Service Review || Reviews</title>
       </Helmet>
-      <div className="space-y-4 my-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-8 lg:p-4">
         {reviews.map((review) => (
           <div
             key={review._id}
             review={review}
-            className="card bg-fuchsia-100 lg:w-96 shadow-xl"
+            className="card bg-fuchsia-100 shadow-xl"
           >
             <div className="card-body">
                 <div className="flex gap-2 items-center">
