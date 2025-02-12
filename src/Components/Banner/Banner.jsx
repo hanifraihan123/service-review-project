@@ -29,9 +29,9 @@ const Banner = () => {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]} className="mySwiper">
-        <SwiperSlide><Slide image={img1} text='Holisticly promote low-risk high-yield technology.'></Slide></SwiperSlide>
-        <SwiperSlide><Slide image={img2} text='Compellingly disseminate ethical platforms before professional.'></Slide></SwiperSlide>
-        <SwiperSlide><Slide image={img3} text='Redefine user friendly supply chains vis-a-vis business schemas.'></Slide></SwiperSlide>
+        <SwiperSlide><Slide image={img1} text='Please Rate Our Services What We Provide.'></Slide></SwiperSlide>
+        <SwiperSlide><Slide image={img2} text='We Beleive on results,Not on talks.....'></Slide></SwiperSlide>
+        <SwiperSlide><Slide image={img3} text='Trust is the main thing in any situation.'></Slide></SwiperSlide>
       </Swiper>
         </div>
     );
